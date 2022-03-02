@@ -1,0 +1,31 @@
+@use 'utils';
+
+.form-div {
+    margin: 3rem 0;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    .form-container {
+        margin: 0 auto;
+        width: 300px;
+        * {
+            margin-bottom: 0.4rem;
+        }
+
+        .form-warning {
+            color: red;
+            margin-bottom: 1rem;
+        }
+
+        :nth-child(4) {
+            margin-bottom: 2.5rem;
+        }
+    }
+}
+
+div.input {
+    display: flex;
+    justify-content: space-between;
+}

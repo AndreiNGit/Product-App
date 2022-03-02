@@ -1,0 +1,134 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap");
+/* ---------- Vars --------------- */
+/* ------------ GENERAL STYLES -------- */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Rubik, sans-serif;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  padding: 0 1.5rem;
+  margin: 0 auto;
+}
+
+.btn {
+  border: 1px solid white;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.danger-btn {
+  color: #fff;
+  background-color: #dc3545;
+}
+
+.primary-btn {
+  color: #fff;
+  background-color: #0b5ed7;
+}
+
+.danger-btn:hover {
+  background-color: #a52532;
+  transition: 0.5s;
+}
+
+.primary-btn:hover {
+  transition-duration: 1s;
+  background-color: #0747a7;
+  transition: 0.5s;
+}
+
+.product-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  padding: 0.5rem;
+  min-width: 200px;
+}
+.product-div input {
+  align-self: flex-start;
+}
+.product-div * {
+  padding: 0.2rem 1rem;
+}
+
+#div-menu .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1.2rem;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid black;
+}
+
+.buttons-container > :first-child {
+  margin-right: 1.2rem;
+}
+
+footer .container {
+  border-top: 2px solid black;
+  width: 100%;
+  text-align: center;
+  padding: 1.4rem;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-div, #div-products {
+  flex-grow: 1;
+}
+
+footer {
+  justify-self: flex-end;
+}
+
+@media screen and (max-width: 400px) {
+  #div-menu .container {
+    flex-direction: column;
+  }
+}
+.form-div {
+  margin: 3rem 0;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+}
+form .form-container {
+  margin: 0 auto;
+  width: 300px;
+}
+form .form-container * {
+  margin-bottom: 0.4rem;
+}
+form .form-container .form-warning {
+  color: red;
+  margin-bottom: 1rem;
+}
+form .form-container :nth-child(4) {
+  margin-bottom: 2.5rem;
+}
+
+div.input {
+  display: flex;
+  justify-content: space-between;
+}
+
+/*# sourceMappingURL=add-product.css.map */

@@ -1,0 +1,13 @@
+@use "utils";
+
+/* --------- DESIGN MENU ----------- */ 
+
+#div-products .container form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 3rem;
+    margin: 3rem 0;
+}
