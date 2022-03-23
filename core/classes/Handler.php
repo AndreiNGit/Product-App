@@ -18,9 +18,10 @@ class Handler{
     public function addProduct() {
         if(!empty($_POST))
         {
-            if(Product::issetVal($_POST, 'attrType'))
+            if(Product::issetVal($_POST, ['attrType']))
             {
-                $prod = new $_POST['attrType']($this->conn);
+                $class =  $_POST['attrType'];
+                $prod = new $class($this->conn);
                 if($prod->issetData($_POST))
                 {
                     if($prod->validateData($_POST))
@@ -30,7 +31,7 @@ class Handler{
                         $prod->setPrice($_POST['price']);
                         $prod->setType($_POST['attrType']);
                         $prod->createAttribute($_POST);
-                        $prod->create();
+                        $prod->create($prod, $this->conn);
                         echo "ok";
                     }
                     else

@@ -17,12 +17,12 @@ class Furniture extends Product
 
     public function validateAttr($inputs)
     {
-        if(filter_var_array([$inputs['width'], $inputs['height'], $inputs['length']], FILTER_VALIDATE_FLOAT) != false);
+        return (filter_var_array([$inputs['width'], $inputs['height'], $inputs['length']], FILTER_VALIDATE_FLOAT) != false);
     }
 
     public function createAttribute($inputs)
     {
-        $attr = 'Dimension: ' . $inputs['height'] . 'x' . $inputs['width'] . $inputs['length'];
+        $attr = 'Dimension: ' . $inputs['height'] . 'x' . $inputs['width'] . 'x' . $inputs['length'];
         $this->setAttr($attr);
     }
 }

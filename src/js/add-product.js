@@ -10,17 +10,18 @@ function showInput(input) {
 
 function changeForm(activate) {
     activate = activate.toLowerCase();
-    if(activate == "size") {
+    console.log(activate);
+    if(activate == "disk") {
         showInput("#size-options");
         hideInput("#dimension-options");
         hideInput("#weight-options");
     }
-    else if (activate == "dimension") {
+    else if (activate == "furniture") {
         hideInput("#size-options");
         showInput("#dimension-options");
         hideInput("#weight-options");
     }
-    else if(activate == "weight") {
+    else if(activate == "book") {
         hideInput("#size-options");
         hideInput("#dimension-options");
         showInput("#weight-options");
@@ -32,7 +33,7 @@ function appendWarning(message) {
 }
 
 function submitForm() {
-    $.post( "/validationPage.php", $("#product_form").serialize(), (data) => {
+    $.post( "/validationPage", $("#product_form").serialize(), (data) => {
         if(data == "ok")
             window.location = "/";
         else

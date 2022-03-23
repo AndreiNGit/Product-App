@@ -6,7 +6,6 @@ $handler = new Handler($db->getConn());
 
 
 $handler->deleteProducts();
-
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +22,7 @@ $handler->deleteProducts();
         <div class="container">
             <h1>Product List</h1>
             <div class="buttons-container">
-                <a href="/add-product.php" id="add-product-btn" class="btn primary-btn">ADD</a>
+                <a href="/add-product" id="add-product-btn" class="btn primary-btn">ADD</a>
                 <button id="delete-product-btn" class="btn danger-btn" type="submit" form="product-form">MASS DELETE</button>
             </div>
         </div>
@@ -31,7 +30,7 @@ $handler->deleteProducts();
 
     <div id=div-products>
         <div class="container">
-            <form action="index.php" method="post" id="product-form">
+            <form action="/" method="post" id="product-form">
                 <?php
                     $handler->displayProducts();
                 ?>

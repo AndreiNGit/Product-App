@@ -17,7 +17,7 @@ class Disk extends Product
 
     public function validateAttr($inputs)
     {
-        if(filter_var($inputs['size'], FILTER_VALIDATE_FLOAT) != false);
+        return(filter_var($inputs['size'], FILTER_VALIDATE_FLOAT) != false);
     }
 
     public function createAttribute($inputs)

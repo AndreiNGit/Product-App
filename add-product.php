@@ -15,7 +15,7 @@
             <h1>Product Add</h1>
             <div class="buttons-container">
                 <button class=" btn primary-btn" type="submit" form="product_form">Save</button>
-                <a href="/index.php" id="add-product-btn" class="btn danger-btn">Cancel</a>
+                <a href="/" id="add-product-btn" class="btn danger-btn">Cancel</a>
             </div>
         </div>
     </div>

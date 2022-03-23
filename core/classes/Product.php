@@ -37,9 +37,8 @@ abstract class Product
                 FROM products
                 WHERE sku = :sku";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([
-            "sku" => $sku
-        ]);
+        $stmt->bindParam("sku", $sku['sku']);
+        $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         return $stmt->fetch();
     }
@@ -53,13 +52,13 @@ abstract class Product
     }
 
     /*------------------------------HELPER FUNCTIONS--------------------------------*/
-    public function uniqueSku($sku)
+    static public function uniqueSku($sku, $conn)
     {
         $sql = "SELECT sku
         FROM products
         where :sku = sku
         LIMIT 1";
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $conn->prepare($sql);
         $stmt->execute(["sku" => $sku]);
         return empty($stmt->fetchAll());
     }
@@ -86,14 +85,10 @@ abstract class Product
     }
 
     /*------------------------------Validators--------------------------------*/
-    static public function validateSKU($inputs)
+    public function validateSKU($inputs)
     {
-        return self::uniqueSku($inputs['sku']);
-    }
-
-    static public function validateName($inputs)
-    {
-        return ;
+        $reg = "/[\s~`!@#$%^&*\(\)\-_+={}\[\]\|\/:;\"'<>,\.\?]/";
+        return self::uniqueSku($inputs['sku'], $this->conn) && preg_match($reg, $inputs['sku']) == 0;
     }
 
     static public function validatePrice($inputs)
@@ -103,20 +98,26 @@ abstract class Product
 
     static public function validateType($inputs)
     {
-
         return in_array($inputs['attrType'], self::defaultTypes);
     }
     
     static public function issetVal($inputs, $val)
     {
         $ok = true;
-        
         foreach($val as $x)
         {
             if(strlen($inputs[$x]) == 0)
                 $ok = false;
         }
         return $ok;
+    }
+
+    public function validateData($inputs)
+    {
+        return ($this->validateSKU($inputs, $this->conn)
+        && $this->validatePrice($inputs)
+        && $this->validateType($inputs)
+        && $this->validateAttr($inputs));
     }
 
     /*------------------------------GETTERS && SETTERS--------------------------------*/
@@ -149,7 +150,7 @@ abstract class Product
 	}
 
 	public function setType($type){
-		$this->type = $type;
+		$this->type = htmlspecialchars($type);
 	}
 
     public function getAttr(){
@@ -157,12 +158,11 @@ abstract class Product
 	}
 
 	public function setAttr($attr){
-		$this->attr = $attr;
+		$this->attr = htmlspecialchars($attr);
 	}
 
     /*------------------------------ABSTRACTS--------------------------------*/
     abstract public function issetData($inputs);
     abstract public function validateAttr($inputs);
-
     abstract public function createAttribute($inputs);
 }

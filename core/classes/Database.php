@@ -4,13 +4,13 @@ class Database
 {
     //left for testing
     private const HOST = "localhost";
-    private const USERNAME = "root";
-    private const PASSWORD = "";
+    private const USERNAME = "tacapaca_andreeinn";
+    private const PASSWORD = "Productapp1";
     protected $conn;
 
     private function connect(){
         try {
-            $this->conn = new PDO('mysql:host='. self::HOST .';port=3306;dbname=app', self::USERNAME, self::PASSWORD);
+            $this->conn = new PDO('mysql:host='. self::HOST .';dbname=tacapaca_productapp', self::USERNAME, self::PASSWORD);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch(PDOException $e)
