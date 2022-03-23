@@ -1,16 +1,14 @@
 <?php
 
-class Handler extends Validator {
+class Handler{
     private $conn;
-    private $prods;
 
     public function deleteProducts() {
         if(!empty($_POST) && isset($_POST['delete-products'])) {
             $v = $_POST['delete-products'];
             foreach($v as $sku)
             {
-                $prod = new Product($this->conn, $sku);
-                $prod->delete();
+                Product::delete($sku, $this->conn);
             }
             unset($_POST);
             header('Location: /');
@@ -18,33 +16,32 @@ class Handler extends Validator {
     }
 
     public function addProduct() {
-        if(strtolower($_POST['attrType']) == 'dimension')
-            $_POST['dimension'] = $_POST['height'] . 'x' . $_POST['width'] . 'x' . $_POST['length'];     
         if(!empty($_POST))
         {
-            if($this->issetData($_POST))
+            if(Product::issetVal($_POST, 'attrType'))
             {
-                $obj = [
-                    "sku" => $_POST['sku'],
-                    "name" => $_POST['name'],
-                    "price" => $_POST['price'],
-                    "attrType" => $_POST['attrType'],
-                    "attr" => $_POST[strtolower($_POST['attrType'])],
-                ];
-                if($this->validType($obj))
+                $prod = new $_POST['attrType']($this->conn);
+                if($prod->issetData($_POST))
                 {
-                    $prod = new Product($this->conn, $obj['sku'], $obj);
-                    $prod->create();
-                    echo "ok";
+                    if($prod->validateData($_POST))
+                    {
+                        $prod->setSku($_POST['sku']);
+                        $prod->setName($_POST['name']);
+                        $prod->setPrice($_POST['price']);
+                        $prod->setType($_POST['attrType']);
+                        $prod->createAttribute($_POST);
+                        $prod->create();
+                        echo "ok";
+                    }
+                    else
+                    {
+                        echo "Please, provide the data of indicated type";
+                    }
                 }
                 else
                 {
-                    echo "Please, provide the data of indicated type";
+                    echo "Please, submit required data";
                 }
-            }
-            else
-            {
-                echo "Please, submit required data";
             }
         }
     }
@@ -52,17 +49,20 @@ class Handler extends Validator {
     public function displayProducts()
     {
         $skus = Product::getSkuList($this->conn);
-        foreach ($skus as $p)
+        foreach ($skus as $sku)
         {
-            $this->prods[] = new Product($this->conn, $p['sku']);
-            $this->prods[count($this->prods)-1]->read();
-            $this->prods[count($this->prods)-1]->displayProduct();
+            $data = Product::read($sku, $this->conn);
+            $prod = new $data['type']($this->conn);
+            $prod->setSku($data['sku']);
+            $prod->setName($data['name']);
+            $prod->setPrice($data['price']);
+            $prod->setAttr($data['attribute']);
+            $prod->displayProduct();
         }
     }
 
     public function __construct($conn) 
     {
         $this->conn = $conn;
-        $this->prods = [];
     }
 }

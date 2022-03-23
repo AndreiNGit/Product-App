@@ -40,9 +40,9 @@
                     <div class="input">
                         <label name="attrType" for="productType">Type Switcher: </label>
                         <select name="attrType" id="productType">
-                            <option name="size" value="Size" id="DVD">DVD</option>
-                            <option name="dimension" value="Dimension" id="Furniture">Furniture</option>
-                            <option name="weight" value="Weight" id="Book">Book</option>
+                            <option name="size" value="Disk" id="DVD">DVD</option>
+                            <option name="dimension" value="Furniture" id="Furniture">Furniture</option>
+                            <option name="weight" value="Book" id="Book">Book</option>
                         </select>
                     </div>
 
